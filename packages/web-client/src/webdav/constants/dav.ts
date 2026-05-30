@@ -106,7 +106,10 @@ const DavPropertyMapping = {
   PublicLinkPermission: defString('public-link-permission' as const),
   PublicLinkExpiration: defString('public-link-expiration' as const),
   PublicLinkShareDate: defString('public-link-share-datetime' as const),
-  PublicLinkShareOwner: defString('public-link-share-owner' as const)
+  PublicLinkShareOwner: defString('public-link-share-owner' as const),
+
+  // Immutable state: "frozen" (self-immutable) or "protected" (parent-immutable)
+  Immutable: defString('immutable' as const)
 } as const satisfies Record<string, M<unknown, unknown>>
 
 type DavPropertyMappingType = typeof DavPropertyMapping
@@ -149,7 +152,8 @@ export abstract class DavProperties {
     DavProperty.Location,
     DavProperty.Image,
     DavProperty.Photo,
-    DavProperty.HasPreview
+    DavProperty.HasPreview,
+    DavProperty.Immutable
   ]
 
   static readonly PublicLink: DavPropertyValue[] = DavProperties.Default.concat([

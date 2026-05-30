@@ -58,6 +58,19 @@
             <span v-if="resource.lockTime">({{ formatDateRelative(resource.lockTime) }})</span>
           </dd>
         </template>
+        <template v-if="resource.immutableState">
+          <dt>{{ $gettext('Protection') }}</dt>
+          <dd data-testid="immutable-state">
+            <oc-icon
+              :name="resource.immutableState === 'frozen' ? 'shield-check' : 'shield'"
+              :fill-type="resource.immutableState === 'frozen' ? 'fill' : 'line'"
+              size="small"
+              class="mr-1 inline-block"
+            />
+            <span v-if="resource.immutableState === 'frozen'">{{ $gettext('Frozen') }}</span>
+            <span v-else>{{ $gettext('Protected') }}</span>
+          </dd>
+        </template>
         <template v-if="showSharedVia">
           <dt>{{ $gettext('Shared via') }}</dt>
           <dd data-testid="shared-via">

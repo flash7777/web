@@ -147,6 +147,7 @@ export function buildResource(
     locked: !!activeLock,
     lockOwner,
     lockTime,
+    immutableState: resource.props[DavProperty.Immutable] || undefined,
     processing: resource.processing || false,
     mdate: resource.props[DavProperty.LastModifiedDate],
     size: isFolder
@@ -178,9 +179,11 @@ export function buildResource(
       return this.permissions.indexOf(DavPermission.SecureView) === -1
     },
     canBeDeleted: function () {
+      if (this.immutableState) return false
       return this.permissions.indexOf(DavPermission.Deletable) >= 0
     },
     canRename: function () {
+      if (this.immutableState) return false
       return this.permissions.indexOf(DavPermission.Renameable) >= 0
     },
     canShare: function ({ ability }) {
